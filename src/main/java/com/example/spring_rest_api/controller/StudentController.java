@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @RestController
+@RequestMapping("students")
 public class StudentController {
 
     @GetMapping("student")
@@ -29,7 +30,7 @@ public class StudentController {
         return ResponseEntity.ok(students);
     }
 
-    @GetMapping("students/{id}/{first-name}/{last-name}")
+    @GetMapping("{id}/{first-name}/{last-name}")
     public ResponseEntity<Student> studentPathVariable(@PathVariable("id") int studentID,
                                        @PathVariable("first-name") String firstName,
                                        @PathVariable("last-name") String lastName){
@@ -37,7 +38,7 @@ public class StudentController {
             return ResponseEntity.ok(student);
     }
 
-    @GetMapping("students/query")
+    @GetMapping("query")
     public Student studentRequestVariable(@RequestParam int id,
                                           @RequestParam String firstName,
                                           @RequestParam String lastName)
@@ -46,7 +47,7 @@ public class StudentController {
     }
 
     // Spring boot REST API that handles HTTP POST Request
-    @PostMapping("students/create")
+    @PostMapping("create")
     @ResponseStatus(HttpStatus.CREATED)
     public Student createStudent(@RequestBody Student student){
         System.out.println(student.getId());
@@ -54,14 +55,14 @@ public class StudentController {
         System.out.println(student.getLastName());
          return student;
     }
-    @PutMapping("student/{id}/update")
+    @PutMapping("{id}/update")
     public Student updateStudent(@RequestBody Student student, @PathVariable("id") int studentID){
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
         return student;
     }
 
-    @DeleteMapping("student/{id}/delete")
+    @DeleteMapping("{id}/delete")
     public String deleteStudent(@PathVariable("id") int studentId){
         System.out.println(studentId);
         return "Details deleted successfully!";
